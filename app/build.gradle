@@ -1,0 +1,41 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "21.1.1"
+
+    defaultConfig {
+        applicationId "de.randombyte.lmgtfy_app"
+        minSdkVersion 14
+        targetSdkVersion 21
+        versionCode 2
+        versionName "0.1"
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("C:/Users/Admin/AndroidStudioProjects/Key.jks")
+            storePassword file("C:/Users/Admin/AndroidStudioProjects/keystorepassword").text
+            keyAlias file("C:/Users/Admin/AndroidStudioProjects/keyaliasrandombyte").text
+            keyPassword file("C:/Users/Admin/AndroidStudioProjects/keypasswordrandombyte").text
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:22.2.0'
+    compile 'com.android.support:design:22.2.0'
+
+    compile 'org.roboguice:roboguice:3.+'
+    provided 'org.roboguice:roboblender:3.+'
+}

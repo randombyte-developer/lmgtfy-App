@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="about">Über</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="copied">Kopiert!</string>
+    <string name="copy">KOPIEREN</string>
+    <string name="preview">VORSCHAU</string>
+    <string name="search_text_hint">Suchbegriff</string>
+    <string name="share">TEILEN</string>
+    <string name="share_with">Teilen mit</string>
+    <string name="about_text">
+        Entwickelt von RandomByte\n\n
+        Diese App erzeugt Links zu der Website lmgtfy.com. Die Links können kopiert, geteilt und vorab im Brower geöffnet werden.\n\n
+        Verwendete Programmbibliotheken(Libraries):\n
+        - RoboGuice 3\n
+        - Design Support Library\n
+        - v7 appcompat library
+    </string>
+</resources>

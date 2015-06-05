@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Ui-->
+    <string name="app_name" translatable="false">lmgtfy-App</string>
+    <string name="action_settings">Settings</string>
+    <string name="copy">COPY</string>
+    <string name="share">SHARE</string>
+    <string name="preview">PREVIEW</string>
+    <string name="search_text_hint">Search term</string>
+
+    <!--Dialoge, Toasts-->
+    <string name="copied">Copied!</string>
+    <string name="share_with">Share with&#8230;</string>
+    <string name="about">About</string>
+    <string name="about_text">
+        Created by RandomByte\n\n
+        This app creates links to the awesome website lmgtfy.com. The links can be copied, shared and previewed.\n\n
+        Used libraries:\n
+        - RoboGuice 3\n
+        - Design Support Library\n
+        - v7 appcompat library
+    </string>
+
+</resources>

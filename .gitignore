@@ -1,0 +1,13 @@
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+
+/logoHD.png
+/logoHD.xcf
+/logoXl.png
+/logoXl.xcf
+/Thumbs.db
+/screen
