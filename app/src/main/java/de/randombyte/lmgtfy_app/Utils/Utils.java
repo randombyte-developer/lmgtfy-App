@@ -13,13 +13,16 @@
  */
 package de.randombyte.lmgtfy_app.Utils;
 
+import android.view.View;
 import android.view.ViewGroup;
 
 public class Utils {
 
     public static void setEnabledRecursive(ViewGroup viewGroup, boolean enabled) {
         for (int i = 0; i < viewGroup.getChildCount(); i++) {
-            viewGroup.getChildAt(i).setAlpha(enabled ? .87f : .26f);
+            View view = viewGroup.getChildAt(i);
+            view.setAlpha(enabled ? .87f : .26f);
+            view.setClickable(enabled);
         }
     }
 }
