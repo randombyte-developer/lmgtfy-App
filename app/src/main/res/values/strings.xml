@@ -14,7 +14,8 @@
     <string name="share_with">Share with&#8230;</string>
     <string name="about">About</string>
     <string name="about_text">
-        Created by RandomByte\n\n
+        Developed by RandomByte\n
+        App-Icon by Erik Olson. Thanks! ;)\n\n
         This app creates links to the awesome website lmgtfy.com. The links can be copied, shared and previewed.\n\n
         Used libraries:\n
         - RoboGuice 3\n
