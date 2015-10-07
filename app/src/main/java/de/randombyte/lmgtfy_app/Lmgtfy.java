@@ -11,18 +11,23 @@
  * You should have received a copy of the GNU General Public License along with this program; if not,
  * see <http://www.gnu.org/licenses/>
  */
-package de.randombyte.lmgtfy_app.Utils;
+package de.randombyte.lmgtfy_app;
 
-import android.view.View;
-import android.view.ViewGroup;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
-public class Utils {
+public class Lmgtfy {
 
-    public static void setEnabledRecursive(ViewGroup viewGroup, boolean enabled) {
-        for (int i = 0; i < viewGroup.getChildCount(); i++) {
-            View view = viewGroup.getChildAt(i);
-            view.setAlpha(enabled ? .87f : .26f);
-            view.setClickable(enabled);
+    private static final String basicLink = "http://lmgtfy.com/?q=";
+
+    public static String createLink(String searchTerm) {
+        if (searchTerm.isEmpty()) return null;
+        try {
+            return basicLink + URLEncoder.encode(searchTerm, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
+
+        return null;
     }
 }

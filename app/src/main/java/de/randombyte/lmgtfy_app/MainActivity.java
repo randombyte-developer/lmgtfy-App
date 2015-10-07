@@ -33,8 +33,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import de.randombyte.lmgtfy_app.Utils.Lmgtfy;
-import de.randombyte.lmgtfy_app.Utils.Utils;
 import roboguice.activity.RoboActionBarActivity;
 import roboguice.inject.InjectView;
 
@@ -69,13 +67,11 @@ public class MainActivity extends RoboActionBarActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 String trimmedText = editable.toString().trim();
-                boolean emptySearchTerm = trimmedText.isEmpty(); //Leerzeichen weg machen
-                Utils.setEnabledRecursive(actionButtonBar, !emptySearchTerm);
+                boolean emptySearchTerm = trimmedText.isEmpty();
+                enableRecursive(actionButtonBar, !emptySearchTerm);
                 previewTextView.setText(emptySearchTerm ? "" : Lmgtfy.createLink(trimmedText));
             }
         });
-
-        Utils.setEnabledRecursive(actionButtonBar, false); //Weil beim Start searchEditText leer ist
 
         copyLinkButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +99,16 @@ public class MainActivity extends RoboActionBarActivity {
                 startActivity(intent);
             }
         });
+
+        enableRecursive(actionButtonBar, false); // at start searchEditText is empty
+    }
+
+    private static void enableRecursive(ViewGroup viewGroup, boolean enabled) {
+        for (int i = 0; i < viewGroup.getChildCount(); i++) {
+            View view = viewGroup.getChildAt(i);
+            view.setAlpha(enabled ? .87f : .26f);
+            view.setClickable(enabled);
+        }
     }
 
     @Override

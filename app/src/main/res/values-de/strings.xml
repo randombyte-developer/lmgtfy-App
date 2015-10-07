@@ -9,8 +9,7 @@
     <string name="share">TEILEN</string>
     <string name="share_with">Teilen mit</string>
     <string name="about_text">
-        Entwickelt von RandomByte\n
-        App-Icon von Erik Olson. Vielen Dank! ;)\n\n
+        Entwickelt von RandomByte\n\n
         Diese App erzeugt Links zu der Website lmgtfy.com. Die Links können kopiert, geteilt und vorab im Brower geöffnet werden.\n\n
         Verwendete Programmbibliotheken(Libraries):\n
         - RoboGuice 3\n
