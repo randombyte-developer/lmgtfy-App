@@ -128,6 +128,11 @@ public class MainActivity extends RoboActionBarActivity {
         enableRecursive(actionButtonBar, false);
     }
 
+    /**
+     * Enables/Disables and sets alpha to every child of the given ViewGroup
+     * @param viewGroup ViewGroup whose children will be enabled/disabled
+     * @param enabled True to enable, false to disable children
+     */
     private static void enableRecursive(ViewGroup viewGroup, boolean enabled) {
         for (int i = 0; i < viewGroup.getChildCount(); i++) {
             View view = viewGroup.getChildAt(i);
@@ -148,14 +153,16 @@ public class MainActivity extends RoboActionBarActivity {
 
         switch (id) {
             case R.id.action_about:
-                new AlertDialog.Builder(this).setMessage(R.string.about_text)
+                new AlertDialog.Builder(this)
+                        .setMessage(R.string.about_text)
                         .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
                             }
                         })
-                        .create().show();
+                        .create()
+                        .show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

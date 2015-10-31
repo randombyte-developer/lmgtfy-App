@@ -13,6 +13,9 @@
  */
 package de.randombyte.lmgtfy_app;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
@@ -20,7 +23,12 @@ public class Lmgtfy {
 
     private static final String basicLink = "http://lmgtfy.com/?q=";
 
-    public static String createLink(String searchTerm) {
+    /**
+     * Creates the link to lmgtfy website
+     * @param searchTerm Search term to be given to lmgtfy
+     * @return Link to lmgtfy.com, null if searchTerm empty
+     */
+    public static @Nullable String createLink(@NonNull String searchTerm) {
         if (searchTerm.isEmpty()) return null;
         try {
             return basicLink + URLEncoder.encode(searchTerm, "UTF-8");
