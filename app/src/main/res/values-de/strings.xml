@@ -14,7 +14,7 @@
         Diese App erzeugt Links zu der Website lmgtfy.com. Die Links können kopiert, geteilt und vorab im Brower geöffnet werden.\n\n
         Verwendete Programmbibliotheken(Libraries):\n
         - RoboGuice 3\n
-        - PersistentSearch von Quinny898
+        - PersistentSearch von Quinny898\n
         - Design Support Library\n
         - v7 appcompat library
     </string>

@@ -19,7 +19,7 @@
         This app creates links to the awesome website lmgtfy.com. The links can be copied, shared and previewed.\n\n
         Used libraries:\n
         - RoboGuice 3\n
-        - PersistentSearch by Quinny898
+        - PersistentSearch by Quinny898\n
         - Design Support Library\n
         - v7 appcompat library
     </string>
