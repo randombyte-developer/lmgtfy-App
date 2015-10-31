@@ -20,12 +20,11 @@
         android:layout_below="@+id/toolbar"
         android:background="@color/background">
 
-        <EditText
+        <com.quinny898.library.persistentsearch.SearchBox
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
             android:layout_centerHorizontal="true"
-            android:singleLine="false"
             android:id="@+id/search_text"
             android:inputType="text"
             android:hint="@string/search_text_hint"/>

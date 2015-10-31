@@ -40,7 +40,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.android.support:design:23.0.1'
 
-    compile 'com.quinny898.library.persistentsearch:library:1.0.0-SNAPSHOT'
+    compile 'com.quinny898.library.persistentsearch:library:1.1.0-SNAPSHOT'
 
     compile 'org.roboguice:roboguice:3.0.1'
     provided 'org.roboguice:roboblender:3.0.1'

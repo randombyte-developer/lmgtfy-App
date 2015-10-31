@@ -13,6 +13,7 @@
  */
 package de.randombyte.lmgtfy_app;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -21,17 +22,20 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.quinny898.library.persistentsearch.SearchBox;
+import com.quinny898.library.persistentsearch.SearchResult;
+
+import java.util.ArrayList;
 
 import roboguice.activity.RoboActionBarActivity;
 import roboguice.inject.InjectView;
@@ -39,7 +43,7 @@ import roboguice.inject.InjectView;
 public class MainActivity extends RoboActionBarActivity {
 
     @InjectView(R.id.toolbar) Toolbar toolbar;
-    @InjectView(R.id.search_text) EditText searchEditText;
+    @InjectView(R.id.search_text) SearchBox searchBox;
     @InjectView(R.id.link_preview) TextView previewTextView;
     @InjectView(R.id.action_buttons_bar) ViewGroup actionButtonBar;
     @InjectView(R.id.copy_link_to_clipboard) Button copyLinkButton;
@@ -53,30 +57,50 @@ public class MainActivity extends RoboActionBarActivity {
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
 
-        searchEditText.addTextChangedListener(new TextWatcher() {
+        searchBox.enableVoiceRecognition(this);
+        searchBox.setLogoText("");
+        searchBox.setMenuVisibility(View.INVISIBLE);
+        searchBox.setSearchListener(new SearchBox.SearchListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void onSearchOpened() {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence text, int start, int before, int count) {
+            public void onSearchCleared() {
 
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {
-                String trimmedText = editable.toString().trim();
-                boolean emptySearchTerm = trimmedText.isEmpty();
+            public void onSearchClosed() {
+
+            }
+
+            @Override
+            public void onSearchTermChanged(String searchTerm) {
+                searchTerm = searchTerm.trim();
+                boolean emptySearchTerm = searchTerm.isEmpty();
                 enableRecursive(actionButtonBar, !emptySearchTerm);
-                previewTextView.setText(emptySearchTerm ? "" : Lmgtfy.createLink(trimmedText));
+                previewTextView.setText(emptySearchTerm ? "" : Lmgtfy.createLink(searchTerm));
+            }
+
+            @Override
+            public void onSearch(String s) {
+
+            }
+
+            @Override
+            public void onResultClick(SearchResult searchResult) {
+
             }
         });
 
         copyLinkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((ClipboardManager) getSystemService(CLIPBOARD_SERVICE)).setPrimaryClip(ClipData.newPlainText("Lmgtfy-Link", Lmgtfy.createLink(searchEditText.getText().toString())));
+                ((ClipboardManager) getSystemService(CLIPBOARD_SERVICE))
+                        .setPrimaryClip(ClipData.newPlainText("Lmgtfy-Link",
+                                Lmgtfy.createLink(searchBox.getSearchText())));
                 Toast.makeText(MainActivity.this, R.string.copied, Toast.LENGTH_SHORT).show();
             }
         });
@@ -86,7 +110,7 @@ public class MainActivity extends RoboActionBarActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_TEXT, Lmgtfy.createLink(searchEditText.getText().toString()));
+                intent.putExtra(Intent.EXTRA_TEXT, Lmgtfy.createLink(searchBox.getSearchText()));
                 startActivity(Intent.createChooser(intent, getResources().getString(R.string.share_with)));
             }
         });
@@ -95,12 +119,13 @@ public class MainActivity extends RoboActionBarActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(Lmgtfy.createLink(searchEditText.getText().toString())));
+                intent.setData(Uri.parse(Lmgtfy.createLink(searchBox.getSearchText())));
                 startActivity(intent);
             }
         });
 
-        enableRecursive(actionButtonBar, false); // at start searchEditText is empty
+        // at start searchBox is empty, placed here because setOnClickListener makes them visible again
+        enableRecursive(actionButtonBar, false);
     }
 
     private static void enableRecursive(ViewGroup viewGroup, boolean enabled) {
@@ -135,5 +160,18 @@ public class MainActivity extends RoboActionBarActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == SearchBox.VOICE_RECOGNITION_CODE && resultCode == Activity.RESULT_OK) {
+            ArrayList<String> matches =
+                    data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            if (matches.size() > 0) {
+                searchBox.populateEditText(matches.get(0));
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
